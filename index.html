@@ -8,50 +8,36 @@
       margin: 0;
       background: black;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      color: white;
-      font-family: Arial, sans-serif;
     }
 
     video {
       max-width: 100%;
-      max-height: 80vh;
-      background: black;
-    }
-
-    .controls {
-      margin-top: 10px;
-    }
-
-    button {
-      padding: 10px 15px;
-      font-size: 16px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
+      max-height: 100vh;
     }
   </style>
 </head>
 <body>
 
-  <video id="video" controls autoplay muted playsinline>
+  <video id="video" controls autoplay playsinline>
     <source src="video.mp4" type="video/mp4">
-    Ваш браузер не поддерживает видео
   </video>
 
-  <div class="controls">
-    <button onclick="toggleSound()">🔊 Включить / выключить звук</button>
-  </div>
-
   <script>
-    const video = document.getElementById('video');
+    const video = document.getElementById("video");
 
-    function toggleSound() {
-      video.muted = !video.muted;
-    }
+    // попытка включить звук и запустить
+    window.addEventListener("load", async () => {
+      try {
+        video.muted = false;
+        await video.play();
+      } catch (e) {
+        // если браузер запретил — просто ничего не ломаем
+        console.log("Автозвук заблокирован браузером");
+      }
+    });
   </script>
 
 </body>
